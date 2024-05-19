@@ -1,0 +1,16 @@
+.wrap {
+  /* Set a fixed width for the .wrap container */
+  display: flex;
+  height: 100vh;
+}
+
+.view_cv {
+  margin-left: 100px;
+  background-color: #f9fafb;
+  margin-top: 0px;
+  flex: 1;
+  position: sticky;
+}
+.wrap_grid {
+  margin-top: 32px;
+}
