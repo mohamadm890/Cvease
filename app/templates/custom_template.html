@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ cv.name }}'s Custom CV{% endblock %}
+{% block content %}
+<h1>{{ cv.name }}</h1>
+<p>Email: {{ cv.email }}</p>
+<p>Phone: {{ cv.phone }}</p>
+<h2>Education</h2>
+<ul>
+    {% for edu in cv.education %}
+    <li>{{ edu }}</li>
+    {% endfor %}
+</ul>
+<h2>Experience</h2>
+<ul>
+    {% for exp in cv.experience %}
+    <li>{{ exp }}</li>
+    {% endfor %}
+</ul>
+<h2>Skills</h2>
+<ul>
+    {% for skill in cv.skills %}
+    <li>{{ skill }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
