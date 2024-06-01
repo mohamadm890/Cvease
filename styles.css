@@ -1,0 +1,57 @@
+.name{
+  padding: 32px;
+    text-align: center;
+  font-size: 24px;
+}
+.contect{
+  padding: 22px;
+}
+.profile{
+  display: flex;
+}
+.summary{
+  padding: 30px;
+}
+.experience {
+  display: flex;
+
+}
+.experience_summary {
+  padding: 40px;
+  display: flex;
+flex-direction: column;
+}
+.education_summary{
+    padding: 30px;
+}
+.skills{
+    padding: 30px;
+}
+
+.container{
+    font-family: "Inter", sans-serif;
+  width: 100%;
+  max-width: 1000px; /* Adjust as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding for spacing */
+}
+
+.wrap_content{
+  
+}
+hr{
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  border: 0;
+}
+p{
+  color: #919191;
+}
+h3{
+  color: #474C52;
+}
+li{
+    color: #919191;
+}
+h2{
+  color: #2A2A2A
+}
