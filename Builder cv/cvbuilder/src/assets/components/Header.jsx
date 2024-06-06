@@ -9,8 +9,19 @@ function Header({ progress }) {
     <div>
       <div>
         <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-          <Box sx={{ width: "100%", mr: 1 }}>
-            <LinearProgress variant="determinate" value={progress} />
+          <Box sx={{ width: "100%", mr: 1, backgroundColor: "white" }}>
+            <LinearProgress
+              variant="determinate"
+              value={progress}
+              sx={{
+                height: 10,
+                borderRadius: 5,
+                backgroundColor: "#fff",
+                "& .MuiLinearProgress-bar": {
+                  backgroundColor: "#0066FF",
+                },
+              }}
+            />
           </Box>
           <Box sx={{ minWidth: 30 }}>
             <Typography variant="body2" color="textSecondary">

@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
+import Button from "@mui/material/Button";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+
 import {
   Container,
   Typography,
@@ -10,101 +13,143 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { store_cv } from "./store";
+import "./cv_theme.css";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
-const Cvtheme = ({ name }) => {
+const Cvtheme = () => {
+  const contentRef = useRef(null);
+
+  const formData = store_cv((state) => state.formData);
+  const captureContent = () => {
+    const element = contentRef.current;
+    html2canvas(element).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("resume.pdf");
+    });
+  };
+
+  const firstName = formData ? formData.first_name : "";
+  const last_name = formData ? formData.last_name : "";
+  const email = formData ? formData.email : "";
+  const phone = formData ? formData.phone : "";
+  const city = formData ? formData.city : "";
+  const address = formData ? formData.address : "";
+  const summary = formData ? formData.summary : "";
+  const school_name = formData ? formData.school_name : "";
+  const degree = formData ? formData.degree : "";
+  const start_date_degree = formData ? formData.start_date_degree : "";
+  const end_date_degree = formData ? formData.end_date_degree : "";
+  const Description_degree = formData ? formData.Description_degree : "";
+  const Experience = formData ? formData.Experience : [];
+  const educations = formData ? formData.educations : [];
+  const skill = formData ? formData.skill : [];
+
+  const job_title = formData ? formData.job_title : "";
+  const employer = formData ? formData.employer : "";
+  const start_date = formData ? formData.start_date : "";
+  const end_date = formData ? formData.end_date : "";
+  const Description_job = formData ? formData.Description_job : "";
+
   return (
-    <>
-      <div className="view_cv">
-        <Container maxWidth="md" style={{ marginTop: "20px" }}>
-          <Paper elevation={3} style={{ padding: "20px" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Avatar
-                  alt="Jack"
-                  src="https://via.placeholder.com/150"
-                  style={{ width: 150, height: 150 }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={8}>
-                <Typography variant="h4">{`${name}`}</Typography>
-                <Typography variant="h6" color="textSecondary">
-                  ReactJS Developer
-                </Typography>
-                <List>
-                  <ListItem>
-                    <ListItemText primary="jack@example.com" />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary="+123 456 7890" />
-                  </ListItem>
-                </List>
-              </Grid>
-            </Grid>
-            <Box mt={4}>
-              <Typography variant="h5">Experience</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Paper elevation={1} style={{ padding: "10px" }}>
-                    <Typography variant="h6">
-                      Frontend Developer at XYZ Corp
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Jan 2020 - Present
-                    </Typography>
-                    <Typography variant="body1">
-                      Developed and maintained web applications using ReactJS
-                      and Redux.
-                    </Typography>
-                  </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                  <Paper elevation={1} style={{ padding: "10px" }}>
-                    <Typography variant="h6">
-                      Junior Developer at ABC Inc
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Jun 2018 - Dec 2019
-                    </Typography>
-                    <Typography variant="body1">
-                      Assisted in developing web applications and worked closely
-                      with the design team to implement UI components.
-                    </Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Box>
-            <Box mt={4}>
-              <Typography variant="h5">Education</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Paper elevation={1} style={{ padding: "10px" }}>
-                    <Typography variant="h6">
-                      BSc in Computer Science
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      University of Somewhere, 2014 - 2018
-                    </Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Box>
-            <Box mt={4}>
-              <Typography variant="h5">Skills</Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Paper elevation={1} style={{ padding: "10px" }}>
-                    <Typography variant="body1">
-                      ReactJS, Redux, JavaScript, HTML, CSS, Git, Agile
-                      methodologies
-                    </Typography>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </Box>
-          </Paper>
-        </Container>
+    <div className="view_cv">
+      <div className="view_cv_wrap">
+        <div className="Cv_content" ref={contentRef}>
+          <article className="cv-article">
+            <header className="flow">
+              <h2 className="text">
+                {firstName} {last_name}
+              </h2>
+              <address className="contact flex">
+                <a href="mailto:john@example.com">{email}</a>
+                <span> · </span>
+                <span>
+                  {address}, {city}
+                </span>
+                <span> · </span>
+                <a href="https://www.example.com">{phone}</a>
+              </address>
+              <hr></hr>
+            </header>
+            <p className="hero-summary" aria-label="High-level summary">
+              {summary}
+            </p>
+
+            <section>
+              <h2 className="text_2">Experience</h2>
+              {Experience.map((experience, index) => (
+                <div className="flow">
+                  <article className={index}>
+                    <div className="experience-item flex">
+                      <h2 className="text_2">
+                        {experience.employer}{" "}
+                        <span aria-hidden="true"> · </span>{" "}
+                        {experience.job_title}
+                      </h2>
+                      <span>
+                        {experience.start_date} - {experience.end_date}
+                      </span>
+                    </div>
+                    <ul>
+                      <li className="li_p">{experience.Description_job}</li>
+                    </ul>
+                  </article>
+                </div>
+              ))}
+            </section>
+            <hr></hr>
+
+            <section>
+              <h2 className="text_2">Education</h2>
+              {educations.map((education, index) => (
+                <div className="flow" key={index}>
+                  <div className="experience-item flex">
+                    <h2 className="text_2">
+                      University Name {education.school_name}
+                      <span aria-hidden="true">&nbsp;·&nbsp;</span> Degree in{" "}
+                      {education.degree}
+                    </h2>
+                    <span>
+                      Start Date: {education.start_date_degree} - End Date:{" "}
+                      {education.end_date_degree}
+                    </span>
+                    <p className="hero-summary">
+                      {education.Description_degree}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </section>
+            <hr></hr>
+            <section>
+              <h2 className="text_2">Skills</h2>
+              <div className="skill_wrap">
+                {skill.map((skill, index) => (
+                  <div className="skill_wrap_">
+                    <span>{skill.skill}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </article>
+        </div>
+        <Box sx={{ marginTop: 4 }}>
+          <Button
+            variant="contained"
+            onClick={captureContent}
+            startIcon={<ArrowDownwardIcon />}
+          >
+            PDF
+          </Button>
+        </Box>
       </div>
-    </>
+    </div>
   );
 };
 

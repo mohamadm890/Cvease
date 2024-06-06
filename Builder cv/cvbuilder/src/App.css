@@ -1,8 +1,8 @@
 #root {
-  width: 92%;
-  margin: auto;
+  width: 100%;
+  margin: 0px;
   margin-top: 0.2px;
-  height: 100vh;
+  height: 80vh;
 }
 .Main_wrap {
   display: flex;
@@ -10,10 +10,8 @@
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+  width: 150px; /* Adjust width as needed */
+  height: auto;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
@@ -43,4 +41,11 @@
 
 .read-the-docs {
   color: #888;
+}
+/* styles.css */
+hr {
+  height: 1px; /* h-px */
+  margin: 0; /* my-8 (8 * 4px, as Tailwind's spacing is based on a scale of 4) */
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  border: none; /* border-0 */
 }
